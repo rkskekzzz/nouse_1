@@ -15,10 +15,10 @@ int main(void)
 	int temp, i = 0, size = 0;
 
 	printf("Files list\n");
-    printf("************************\n");
-    printf("10.txt : 10 nums\n");
-    printf("1000.txt : 1000 nums\n");
-    printf("************************\n");
+	printf("************************\n");
+	printf("10.txt : 10 nums\n");
+	printf("10000.txt : 10000 nums\n");
+	printf("************************\n");
 	printf("Which file to sort ? ");
 	scanf("%s", &file_name);
 	file = fopen(file_name, "rt");
@@ -34,19 +34,19 @@ int main(void)
 		size++;
 	}
 	fclose(file);
-    
-    printf("<before sorting>\n");
-    for (i = 0; i < size; i++)
+
+	printf("\n<before sorting>\n");
+	for (i = 0; i < size; i++)
 		printf("%d ", arr[i]);
 	start = clock();
 
-	bubble_sort(arr, size);
-	selection_sort(arr, size);
+//	bubble_sort(arr, size);
+//	selection_sort(arr, size);
 	insertion_sort(arr, size);
 
 	end = clock();
 
-    printf("\n\n<after sorting>\n");
+	printf("\n\n<after sorting>\n");
 	for (i = 0; i < size; i++)
 		printf("%d ", arr[i]);
 	printf("\nsorting time : %f\n", (float)(end - start) / CLOCKS_PER_SEC);
