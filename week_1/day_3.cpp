@@ -32,7 +32,6 @@ long long count_height(long long n, long long max, long long m)
     {
         mid = (max + start) / 2;
         sum = sum_height(n, mid);
-        printf("sum : %d, mid : %d\n", sum, mid);
         if (sum >= m)
         {
             if (height < mid)
