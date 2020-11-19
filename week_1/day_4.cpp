@@ -49,11 +49,7 @@ void solution()
     
     cin >> k >> m;
     for (int i = 0 ; i < k ; i++)
-    {
         cin >> arr[i];
-        if (top_length < arr[i])
-            top_length = arr[i];
-    }
     sort(arr, arr + k, greater<int>());
-    cout << max_length(k, m, top_length);
+    cout << max_length(k, m, arr[0]);
 }

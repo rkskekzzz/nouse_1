@@ -48,14 +48,10 @@ int binary_search(int *arr, int n, int m, int end)
     return result;
 }
 
-void set_arr(int *arr, int n, int *max_val)
+void set_arr(int *arr, int n)
 {
     for (int i = 0 ; i < n ; i++)
-    {
         cin >> arr[i];
-        if (arr[i] > *max_val)
-            *max_val = arr[i];
-    }
 }
 
 void solution(){
@@ -64,7 +60,7 @@ void solution(){
     long long sum = 0;
     
     cin >> n;
-    set_arr(arr, n, &max_val);
+    set_arr(arr, n);
     sort(arr, arr+n);
     cin >> m;
     for (int i = 0 ; i < n ; i++)
@@ -72,5 +68,5 @@ void solution(){
     if (sum <= m)
         cout << max_val;
     else
-        cout << binary_search(arr, n, m, max_val);
+        cout << binary_search(arr, n, m, arr[n - 1]);
 }
