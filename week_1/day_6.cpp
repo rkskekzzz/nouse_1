@@ -44,7 +44,8 @@ void solution()
     }
 
     for(int i = 1; i <= n; i++){
-        memset(visited, 0, sizeof(visited));
+        for(int j = 0 ; j < m ; j++)
+            visited[j] = 0;
         count = 0;
         dfs(i);
         depth[i] = count;
