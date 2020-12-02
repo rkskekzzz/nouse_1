@@ -9,27 +9,27 @@ void input()
 {
 	std::cin >> N >> M;
 	for (int i = 0; i < N; i++)
-	{
 		std::cin >> lines[i];
-		if (max < lines[i])
-			max = lines[i];
-	}
+	std::sort(lines, lines + N);
 }
 
 void solution()
 {
-	long long start, mid, end, count;
+	long long start = 1, mid, end, count;
 	long long result;
 
-	start =  1;
-	end = max * M;
+	max = lines[N - 1];
 	result = max * M;
+	end = max * M;
 	while (start <= end)
 	{
 		count = 0;
 		mid = (start + end) / 2;
-		for (int i = 0; i < N; i++)
+		for (int i = 0; i < N; i++){
+			if (lines[i] > mid)
+				break;
 			count += mid / lines[i];
+		}
 
 		if (count >= M)
 		{
