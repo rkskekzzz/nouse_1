@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 
-
 class Stack
 {
 	int MAX;
@@ -9,7 +8,7 @@ class Stack
 
 public:
 	std::vector<int> array = std::vector<int>(MAX);
-	Stack(int max):MAX(max), top(-1) {}
+	Stack(int max) : MAX(max), top(-1) {}
 	bool push(int value);
 	int pop();
 	int peek();
@@ -17,7 +16,8 @@ public:
 	bool isEmpty();
 };
 
-bool Stack::push(int value){
+bool Stack::push(int value)
+{
 	if (isFull())
 		return false;
 
@@ -25,7 +25,8 @@ bool Stack::push(int value){
 	return true;
 }
 
-int Stack::pop(){
+int Stack::pop()
+{
 	if (isEmpty())
 		return false;
 
@@ -33,19 +34,22 @@ int Stack::pop(){
 	return tmp;
 }
 
-int Stack::peek(){
+int Stack::peek()
+{
 	if (isEmpty())
 		return false;
 
 	return array[top];
 }
 
-bool Stack::isFull(){
-	return (top == MAX - 1) ? 1 : 0 ;
+bool Stack::isFull()
+{
+	return (top == MAX - 1) ? 1 : 0;
 }
 
-bool Stack::isEmpty(){
-	return (top == -1) ? 1 : 0 ;
+bool Stack::isEmpty()
+{
+	return (top == -1) ? 1 : 0;
 }
 
 int main(void)
