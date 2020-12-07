@@ -16,30 +16,28 @@ void input()
 
 void solution()
 {
-	int start;
-	int end = n - 1;
-	int mid;
+	int start, mid, end;
 	int hole_size = 10000000 * x;
 
 	for (int i = 0; i < n; i++)
 	{
-		start = i;
+		start = i + 1;
+		end = n - 1;
 		while (start <= end)
 		{
 			mid = (start + end) / 2;
-			std::cout << "mid : " << mid << std::endl;
 			if (array[mid] + array[i] > hole_size)
 				end = mid - 1;
-			else if (array[mid] + array[i] == hole_size)
-			{
-				std::cout << "yes " << array[i] << ' ' << array[mid];
-				return ;
-			}
-			else
+			else if (array[mid] + array[i] < hole_size)
 				start = mid + 1;
+			else
+			{
+				std::cout << "yes " << array[i] << ' ' << array[mid] << '\n';
+				return;
+			}
 		}
 	}
-	std::cout << "danger";
+	std::cout << "danger\n";
 }
 
 int main()
@@ -53,4 +51,5 @@ int main()
 		input();
 		solution();
 	}
+	return 0;
 }
