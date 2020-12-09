@@ -15,23 +15,29 @@ void input()
 	}
 }
 
+int calculate(int mid)
+{
+	int div_sum = 0;
+	for (int i = 0; i < M; i++)
+	{
+		div_sum += array[i] / mid;
+		if (array[i] % mid)
+			++div_sum;
+	}
+	return div_sum;
+}
+
 void solution()
 {
 	int start = 1;
 	int mid;
 	int end = max;
-	int div_sum;
 
 	while (start <= end)
 	{
 		mid = (start + end) / 2;
-		div_sum = 0;
-		for (int i = 0; i < M; i++)
-		{
-			div_sum += array[i] / mid;
-			if (array[i] % mid)
-				++div_sum;
-		}
+		int div_sum = calculate(mid);
+
 		if (div_sum > N)
 			start = mid + 1;
 		else
