@@ -5,39 +5,33 @@
 
 int N, NN, vill_count, K, result;
 std::pair<int, int> start_position;
+std::string vill;
 std::vector<bool> visited;
-std::vector<std::pair<int, int>> godo;
-std::vector<std::pair<int, char>> vill;
+std::vector<int> godo;
 std::vector<std::pair<int, int>> direction;
 std::vector<int> godo_set;
 
 void input()
 {
-	char c;
 	int h;
 	std::cin >> N;
 	NN = N * N;
 	vill.resize(NN);
 	godo.resize(NN);
-	godo_set.resize(NN);
 	direction = {{0, 1}, {0, -1}, {1, 0}, {-1 ,0}, {1, 1}, {1, -1}, {-1, -1}, {-1, 1} };
 	result = 1e6;
 
 	for (int i = 0; i < NN; i++)
 	{
-		std::cin >> c;
-		vill[i] = std::make_pair(i, c);
-		if (c == 'P')
+		std::cin >> vill[i];
+		if (vill[i] == 'P')
 			start_position = std::make_pair(i / N, i % N);
-		else if (c == 'K')
+		else if (vill[i] == 'K')
 			vill_count++;
 	}
 	for (int i = 0; i < NN; i++)
-	{
-		std::cin >> h;
-		godo[i] = std::make_pair(i, h);
-		godo_set[i] = h;
-	}
+		std::cin >> godo[i];
+	godo_set = godo;
 	std::sort(godo_set.begin(), godo_set.end());
 	godo_set.erase(std::unique(godo_set.begin(),godo_set.end()), godo_set.end());
 }
@@ -46,10 +40,10 @@ void dfs(int x, int y, int min, int max)
 {
 	int xNy = x * N + y;
 
-	if (x < 0 || y < 0 || x >= N || y >= N || visited[xNy] || godo[xNy].second < min || godo[xNy].second > max || K == vill_count)
+	if (x < 0 || y < 0 || x >= N || y >= N || visited[xNy] || godo[xNy] < min || godo[xNy]> max || K == vill_count)
 		return;
 	visited[xNy] = true;
-	if (vill[xNy].second == 'K')
+	if (vill[xNy] == 'K')
 		++K;
 	for (int i = 0; i < 8; i++)
 		dfs(x + direction[i].first, y + direction[i].second, min, max);
