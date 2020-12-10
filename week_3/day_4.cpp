@@ -1,40 +1,60 @@
 #include <iostream>
+#include <vector>
 
 int N, M;
-int island[10001][10001];
-int factory1, factory2;
+int start, end, MAX;
+int mid, ans;
+std::vector <std::vector<std::pair <int, int> > > bridge_weight;
+std::vector <bool> visited;
 
-void input(){
-	int A, B, tmp;
+bool dfs(int st)
+{
+	if (visited[st])
+		return false;
+	visited[st] = true;
+	if (st == end)
+		return true;
+	for(size_t i = 0; i < bridge_weight[st].size() ; i++)
+		if (bridge_weight[st][i].second >= mid && dfs(bridge_weight[st][i].first))
+			return true;
+	return false;
+}
 
-	std::cin >> N >> M;
-	for (int i = 0 ; i < M ; i++){
-		std::cin >> A >> B;
-		std::cin >> tmp;
-		if (island[A][B] < tmp){
-			island[A][B] = island[B][A] = tmp;
-		}
-
+void binary_search(int min, int max)
+{
+	while (min <= max){
+		mid = (min + max) / 2;
+		visited = std::vector<bool>(N, false);
+		if (dfs(start))
+			min = mid + 1;
+		else
+			max = mid - 1;
 	}
-	std::cin >> factory1 >> factory2;
+	ans = max;
 }
 
-void dfs(int i, int j){
-	if (i = )
-	dfs(j, i);
-}
-
-void solution(){
-	dfs(factory1, 0);
+void preset(){
+	std::ios_base::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
 }
 
 int main()
 {
-	std::ios_base::sync_with_stdio(false);
-	std::cin.tie(NULL);
-	std::cout.tie(NULL);
+	preset();
+	int a, b, c;
 
-	input();
-	solution();
-	return 0;
+	std::cin >> N >> M;
+	bridge_weight.resize(N + 1);
+	for(int i = 0 ; i < M ; i++)
+	{
+		std::cin >> a >> b >> c;
+		MAX = std::max(MAX, c);
+		bridge_weight[a].push_back(std::make_pair(b, c));
+		bridge_weight[b].push_back(std::make_pair(a, c));
+	}
+	std::cin >> start >> end;
+	binary_search(0, MAX);
+	std::cout << ans;
+	return (0);
 }
