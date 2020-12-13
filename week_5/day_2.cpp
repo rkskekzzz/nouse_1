@@ -4,10 +4,10 @@
 
 int result;
 int N, NN;
-std::vector<bool>	visited;
-std::vector<int>	matrix;
-std::vector<int>	matrix_unique;
-std::vector<std::pair<int, int> > direction;
+std::vector<bool> visited;
+std::vector<int> matrix;
+std::vector<int> matrix_unique;
+std::vector<std::pair<int, int>> direction;
 
 void input()
 {
@@ -47,13 +47,13 @@ void solution()
 	{
 		for (; left < size; left++)
 		{
-			if (matrix_unique[right] - matrix_unique[left] < result){
+			if (matrix_unique[right] - matrix_unique[left] < result)
+			{
 				visited = std::vector<bool>(NN, false);
 				if (!dfs(0, 0, matrix_unique[left], matrix_unique[right]))
 					break;
 				result = matrix_unique[right] - matrix_unique[left];
 			}
-
 		}
 	}
 }
