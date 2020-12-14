@@ -2,37 +2,37 @@
 #include <vector>
 #include <algorithm>
 
-int N, M, L;
+int number_of_points, number_of_newpoints, length_of_load;
 int result;
-std::vector<int> array;
+std::vector<int> point;
 
 void input(){
 	int i;
-	std::cin >> N >> M >> L;
-	array.resize(N + 2);
-	array[0] = 0;
-	for (i = 1 ; i <= N ; i++)
-		std::cin >> array[i];
-	array[i] = L;
-	std::sort(array.begin(), array.end());
+	std::cin >> number_of_points >> number_of_newpoints >> length_of_load;
+	point.resize(number_of_points + 2);
+	point[0] = 0;
+	for (i = 1 ; i <= number_of_points ; i++)
+		std::cin >> point[i];
+	point[i] = length_of_load;
+	std::sort(point.begin(), point.end());
 }
 
 void solution(){
 	int start = 1;
 	int mid;
-	int end = L - 1;
+	int end = length_of_load - 1;
 
 	while (start <= end){
 		mid = (start + end) / 2;
 
-		int count = 0;
-		for(int i = 1 ; i < N + 2 ; i++){
-			int length = array[i] - array[i - 1];
-			count += length / mid;
-			if (!(length % mid))
-				--count;
+		int count_of_newpoints = 0;
+		for(int i = 1 ; i < number_of_points + 2 ; i++){
+			int length_of_two_points = point[i] - point[i - 1];
+			count_of_newpoints += length_of_two_points / mid;
+			if (!(length_of_two_points % mid))
+				--count_of_newpoints;
 		}
-		if (count <= M)
+		if (count_of_newpoints<= number_of_newpoints)
 			end = mid - 1;
 		else
 			start = mid + 1;
