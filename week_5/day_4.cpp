@@ -4,7 +4,6 @@
 int number_of_beads, number_of_group, result;
 int MAX, MIN;
 std::vector<int> beads;
-
 void input()
 {
 	std::cin >> number_of_beads >> number_of_group;
@@ -15,7 +14,7 @@ void input()
 		MAX += beads[i];
 		MIN = std::max(MIN, beads[i]);
 	}
-}
+
 
 bool calculate(int mid)
 {

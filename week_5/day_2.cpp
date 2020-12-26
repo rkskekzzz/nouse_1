@@ -8,7 +8,7 @@ std::vector<bool> visited;
 std::vector<int> matrix;
 std::vector<int> matrix_unique;
 std::vector<std::pair<int, int>> direction;
-
+std::vector<int> a;
 void input()
 {
 	std::cin >> N;
@@ -21,6 +21,13 @@ void input()
 	std::sort(matrix_unique.begin(), matrix_unique.end());
 	matrix_unique.erase(std::unique(matrix_unique.begin(), matrix_unique.end()), matrix_unique.end());
 	result = matrix_unique[static_cast<int>(matrix_unique.size()) - 1] - matrix_unique[0];
+
+	a.resize(200000);
+	for (int i = 0 ; i < 200000; i++)
+	{
+		a[i] = i;
+		//a[i].second = i;
+	}
 }
 
 bool dfs(int x, int y, int min, int max)
