@@ -6,48 +6,34 @@
 int		result;
 int		R;
 int		C;
-int		car_cnt;
-int		matched_cnt;
-int		park_cnt;
 
 std::string map;
-std::vector<std::pair<int, int>> dir;
-std::vector<std::pair<int, int>> park;
-std::vector<std::pair<int, int>> cars;
+std::queue<std::pair<int, int> > bfs_check;
+std::vector<std::pair<int, int> > dir;
+std::vector<std::pair<int, int> > park;
+std::vector<std::pair<int, int> > cars;
 std::vector<std::vector<int>> dis;
 std::vector<int> linked;
 std::vector<int> visited;
 std::vector<bool> matched;
-std::queue<std::pair<int, int>> qqq;
 
 void	input()
 {
 	std::cin >> R >> C;
 	map.resize(R * C);
+	result = -1;
 	dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
 	for (int i = 0; i < R * C; i++)
 	{
 		std::cin >> map[i];
 		if (map[i] == 'C')
-		{
-			++car_cnt;
 			cars.push_back(std::make_pair(i / C, i % C));
-		}
-		else if (map[i] == 'P')
-		{
-			++park_cnt;
+		if (map[i] == 'P')
 			park.push_back(std::make_pair(i / C, i % C));
-		}
 	}
-	dis.reserve(car_cnt);
-	for (int i = 0; i < car_cnt; i++)
-		dis[i].reserve(park_cnt);
-	for (int i = 0; i < park_cnt; i++)
-	{
-		if (i % C == 0)
-			std::cout << '\n';
-		std::cout << map[i];
-	}
+	dis.reserve(cars.size());
+	for (size_t i = 0; i < cars.size(); i++)
+		dis[i].reserve(park.size());
 }
 
 void	bfs()
@@ -57,18 +43,17 @@ void	bfs()
 	int	next_x;
 	int	next_y;
 
-	std::cout << "\nstart bfs!" << std::endl;
-	for (int i = 0; i < car_cnt; i++)
+	for (size_t i = 0; i < cars.size(); i++)
 	{
 		visited = std::vector<int>(R * C, -1);
-		qqq = std::queue<std::pair<int, int>>();
-		qqq.push({ cars[i].first, cars[i].second });
+		bfs_check = std::queue<std::pair<int, int> >();
+		bfs_check.push({ cars[i].first, cars[i].second });
 		visited[cars[i].first * C + cars[i].second] = 0;
-		while (!qqq.empty())
+		while (!bfs_check.empty())
 		{
-			x = qqq.front().first;
-			y = qqq.front().second;
-			qqq.pop();
+			x = bfs_check.front().first;
+			y = bfs_check.front().second;
+			bfs_check.pop();
 			for (int j = 0; j < 4; j++)
 			{
 				next_x = x + dir[j].first;
@@ -77,27 +62,28 @@ void	bfs()
 					map[next_x * C + next_y] != 'X' && visited[next_x * C + next_y] == -1)
 				{
 					visited[next_x * C + next_y] = visited[x * C + y] + 1;
-					qqq.push({ next_x, next_y });
+					bfs_check.push({ next_x, next_y });
 				}
 			}
 		}
-		for (int k = 0; k < park_cnt; k++)
-		{
+		for (size_t k = 0; k < park.size(); k++)
 			dis[i][k] = visited[park[k].first * C + park[k].second];
-		}
 	}
-	for (int i = 0; i < car_cnt; i++)
+	//출력용
+	for (size_t a = 0 ; a < cars.size() ; a++)
 	{
-		std::cout << "car " << i << "!!!" << std::endl;
-		for (int j = 0; j < park_cnt; j++)
+		std::cout << "car " << a << " : ";
+		for (size_t b = 0 ; b < park.size() ; b++)
 		{
-			std::cout << "len : " << dis[i][j] << std::endl;
+			std::cout << dis[a][b] << " ";
 		}
+		std::cout << std::endl;
 	}
 }
+
 bool	dfs_matching(int mid, int car)
 {
-	for (int i = 0; i < park_cnt; i++)
+	for (size_t i = 0; i < park.size(); i++)
 	{
 		if (dis[car][i] < 1 || matched[i] || mid < dis[car][i])
 			continue ;
@@ -105,21 +91,20 @@ bool	dfs_matching(int mid, int car)
 		if (linked[i] == -1 || dfs_matching(mid, linked[i]))
 		{
 			linked[i] = car;
-			return (true);
+			return true;
 		}
 	}
-	return (false);
+	return false;
 }
 
-int		dfs(int mid)
+int	dfs(int mid)
 {
-	int	cnt;
+	int	cnt = 0;
 
-	linked = std::vector<int>(park_cnt, -1);
-	cnt = 0;
-	for (int i = 0; i < car_cnt; i++)
+	linked = std::vector<int>(park.size(), -1);
+	for (size_t i = 0; i < cars.size(); i++)
 	{
-		matched = std::vector<bool>(park_cnt, false);
+		matched = std::vector<bool>(park.size(), false);
 		if (dfs_matching(mid, i))
 			++cnt;
 	}
@@ -127,28 +112,47 @@ int		dfs(int mid)
 }
 void	bsearch()
 {
-	int	left;
+	int	left = 1;
 	int	mid;
-	int	right;
+	int	right = R * C;
 
-	left = 1;
-	right = R * C;
 	while (left <= right)
 	{
 		mid = (left + right) / 2;
-		std::cout << "mid : " << mid << std::endl;
-		if (dfs(mid) == car_cnt)
+		if (dfs(mid) == (int)cars.size())
+		{
+			result = mid;
 			right = mid - 1;
+		}
 		else
 			left = mid + 1;
 	}
-	result = left;
 }
+
+bool	ispossible()
+{
+	if (!cars.size())
+	{
+		std::cout << 0;
+		return false;
+	}
+	if (cars.size() > park.size())
+	{
+		std::cout << -1;
+		return false;
+	}
+	return true;
+}
+
+void	output() { std::cout << result; }
 
 void	solution()
 {
+	if (!ispossible())
+		return ;
 	bfs();
 	bsearch();
+	output();
 }
 
 void	preset()
@@ -158,15 +162,9 @@ void	preset()
 	std::cout.tie(NULL);
 }
 
-void	output()
-{
-	std::cout << result;
-}
-
-int		main()
+int	main()
 {
 	preset();
 	input();
 	solution();
-	output();
 }
