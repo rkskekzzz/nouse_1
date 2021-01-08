@@ -7,7 +7,7 @@ int		result;
 int		R;
 int		C;
 int		car_cnt;
-;
+int		matched_cnt;
 int		park_cnt;
 
 std::string map;
@@ -15,7 +15,9 @@ std::vector<std::pair<int, int>> dir;
 std::vector<std::pair<int, int>> park;
 std::vector<std::pair<int, int>> cars;
 std::vector<std::vector<int>> dis;
+std::vector<int> linked;
 std::vector<int> visited;
+std::vector<bool> matched;
 std::queue<std::pair<int, int>> qqq;
 
 void	input()
@@ -66,14 +68,13 @@ void	bfs()
 		{
 			x = qqq.front().first;
 			y = qqq.front().second;
-			std::cout << "x, y : " << x << ", " << y << std::endl;
 			qqq.pop();
 			for (int j = 0; j < 4; j++)
 			{
 				next_x = x + dir[j].first;
 				next_y = y + dir[j].second;
 				if (next_x >= 0 && next_y >= 0 && next_x < R && next_y < C &&
-					visited[next_x * C + next_y] == -1)
+					map[next_x * C + next_y] != 'X' && visited[next_x * C + next_y] == -1)
 				{
 					visited[next_x * C + next_y] = visited[x * C + y] + 1;
 					qqq.push({ next_x, next_y });
@@ -87,29 +88,67 @@ void	bfs()
 	}
 	for (int i = 0; i < car_cnt; i++)
 	{
-		std::cout << "car "<< i << "!!!" << std::endl;
+		std::cout << "car " << i << "!!!" << std::endl;
 		for (int j = 0; j < park_cnt; j++)
 		{
 			std::cout << "len : " << dis[i][j] << std::endl;
 		}
 	}
 }
-
-bool	ispossible()
+bool	dfs_matching(int mid, int car)
 {
-	if (car_cnt != park_cnt)
-		return (false);
-	return (true);
+	for (int i = 0; i < park_cnt; i++)
+	{
+		if (dis[car][i] < 1 || matched[i] || mid < dis[car][i])
+			continue ;
+		matched[i] = true;
+		if (linked[i] == -1 || dfs_matching(mid, linked[i]))
+		{
+			linked[i] = car;
+			return (true);
+		}
+	}
+	return (false);
+}
+
+int		dfs(int mid)
+{
+	int	cnt;
+
+	linked = std::vector<int>(park_cnt, -1);
+	cnt = 0;
+	for (int i = 0; i < car_cnt; i++)
+	{
+		matched = std::vector<bool>(park_cnt, false);
+		if (dfs_matching(mid, i))
+			++cnt;
+	}
+	return (cnt);
+}
+void	bsearch()
+{
+	int	left;
+	int	mid;
+	int	right;
+
+	left = 1;
+	right = R * C;
+	while (left <= right)
+	{
+		mid = (left + right) / 2;
+		std::cout << "mid : " << mid << std::endl;
+		if (dfs(mid) == car_cnt)
+			right = mid - 1;
+		else
+			left = mid + 1;
+	}
+	result = left;
 }
 
 void	solution()
 {
-	if (!ispossible())
-	{
-		result = -1;
-		return ;
-	}
 	bfs();
+	bsearch();
 }
 
 void	preset()
