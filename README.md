@@ -14,7 +14,7 @@ SSH의 백준 알고리즘 문제풀이와 기본적인 알고리즘과 자료�
 |[week_3](/week_3)|[7453](/week_3/day_1.cpp) [1072](/week_3/day_2.cpp) [3020](/week_3/day_3.cpp) [1939](/week_3/day_4.cpp) [3079](/week_3/day_5.cpp) |Complete|
 |[week_4](/week_4)|[2343](/week_4/day_1.cpp) [2792](/week_4/day_2.cpp) [2842](/week_4/day_3.cpp) [3649](/week_4/day_4.cpp) [6236](/week_4/day_5.cpp) |Complete|
 |[week_5](/week_5)|[2022](/week_5/day_1.cpp) [1981](/week_5/day_2.cpp) [11812](/week_5/day_3.cpp) [2613](/week_5/day_4.cpp) [1477](/week_5/day_5.cpp) |Complete|
-|[week_6](/week_6)|[1348](/week_6/day_1.cpp) [2191](/week_6/day_2.cpp) [2585](/week_6/day_3.cpp) [2872](/week_6/day_4.cpp) [2912](/week_6/day_5.cpp) |Incomplete|
+|[week_6](/week_6)|[1348](/week_6/day_1.cpp) [2191](/week_6/day_2.cpp) [2585](/week_6/day_3.cpp) [2872](/week_6/day_4.cpp) [2912](/week_6/day_5.cpp) [9202](/week_6/day_6.cpp) |Incomplete|
 
 ### 2. Dinamic programing
 
