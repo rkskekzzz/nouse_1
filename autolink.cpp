@@ -12,12 +12,12 @@ int main()
 
 	for (int i =  weeknum; i < weeknum + weekcnt ; i++)
 	{
-		std::cout << "|week_" << i  << "|";
+		std::cout << "|[week_" << i  << "]|(/week_" << i << ")|" ;
 		for (int j = 0 ; j < quesnum ; j++)
 		{
 			std::cout << "[" << a[j] << "](/week_" << i << "/day_" << j + 1  <<".cpp) ";
 		}
-		std::cout << status[0] << std::endl;
+		std::cout << "|" << status[0] << "|" << std::endl;
 	}
 
 }
