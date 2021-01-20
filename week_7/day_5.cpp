@@ -1,7 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <array>
-
 
 std::vector<int> dp_vector;
 int n;

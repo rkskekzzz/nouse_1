@@ -19,21 +19,15 @@ void solution()
 	{
 		dp_vector[i] = points[i] + std::max(dp_vector[i - 2], dp_vector[i - 3] + points[i - 1]);
 	}
-	for (int i = 0 ; i <=cnt ; i++)
-		std::cout << dp_vector[i] << " ";
-	std::cout <<std::endl;
 }
 
 void input()
 {
 	std::cin >> cnt;
 	points.resize(cnt + 1);
-	dp_vector = std::vector<int>(cnt, 0);
+	dp_vector = std::vector<int>(cnt + 1, 0);
 	for (int i = 1 ; i <= cnt ; i++)
 		std::cin >> points[i];
-	for (int i = 0 ; i <= cnt ; i++)
-		std::cout << points[i] <<" ";
-	std::cout << std::endl;
 }
 
 void preset()

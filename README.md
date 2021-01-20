@@ -20,7 +20,8 @@ SSH의 백준 알고리즘 문제풀이와 기본적인 알고리즘과 자료�
 
 |Directory|Question|Status|
 |:---|:---|:---|
-|week_7|[1003](/week_7/day_1.cpp) [11726](/week_7/day_2.cpp) [1463](/week_7/day_3.cpp) [2579](/week_7/day_4.cpp) [9095](/week_7/day_5.cpp) |Ongoing|
+|[week_7](/week_7)|[1463](/week_7/day_1.cpp) [9095](/week_7/day_2.cpp) [1003](/week_7/day_3.cpp) [2579](/week_7/day_4.cpp) [11726](/week_7/day_5.cpp) |Complete|
+
 
 ### 3. Greedy
 |Directory|Question|Status|
