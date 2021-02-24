@@ -1,14 +1,9 @@
 #include <iostream>
+#include <bitset>
 
 int main()
 {
-	int visited = 8;
-
-	if ((visited & (1 << 3)) == 1 << 3)
-			std::cout << "된다!";
-	else
-	{
-			std::cout << "안된다!";
-	}
-
+	int a = 7;
+	std::cout << std::bitset<2>(a) << std::endl;
 }
+
